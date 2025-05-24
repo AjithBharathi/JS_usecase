@@ -16,7 +16,7 @@ multiply(value); // 40
 let chPerson = { name: 'ajith' };
 const chPersonArr = [chPerson];
 chPerson = null; // this will not change the array value
-chPerson.name = 'bhara'; // this will the do the changes in the array
+// chPerson.name = 'bhara'; // this will the do the changes in the array
 console.log(chPersonArr);
 
 function changeAgeAndReference(person) {
