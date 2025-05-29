@@ -25,6 +25,45 @@ console.log('find largest value 2 - ', findLargestNumner2([1, 2, 3, 4, 5, 6]));
 
 // -------------------------------------------------------------------------
 
+// FIND 2ND LARGEST NUMBER 
+function findSecondLargestNumber(val) {
+  let large = val[0];
+  let secLarg = -Infinity;
+  for(let i=0;i<val.length;i++) {
+    if(val[i] > large) {
+      secLarg = large;
+      large = val[i];
+    } else if(val[i] > secLarg && val[i] !== large) {
+      secLarg = val[i]
+    }
+  }
+  return secLarg;
+
+}
+console.log('second largest number - ', findSecondLargestNumber([1, 2, 3, 4, 5, 6]));
+
+
+// -------------------------------------------------------------------------
+
+// FIND 2ND SMALLEST NUMBER 
+
+function findSecondSmallestNumber(val) {
+  let small = val[0];
+  let secSmall = Infinity;
+  for(let i=0;i<val.length;i++){
+    if(val[i] < small) {
+      secSmall = small;
+      small = val[i];
+    } else if(val[i] < secSmall && val[i] !== small) {
+      secSmall = val[i];
+    }
+  }
+  return secSmall;
+}
+console.log('second smallest number - ', findSecondSmallestNumber([1, 2, 3, 4, 5, 6]));
+
+// -------------------------------------------------------------------------
+
 // ADD AN ARRAY USING REDUCE METHOD
 
 function addArrayReduce(val) {
