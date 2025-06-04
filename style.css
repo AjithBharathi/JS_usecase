@@ -1,0 +1,24 @@
+.set {
+    border: 1px solid black;
+    padding: 20px;
+    margin: 20px;
+}
+
+#outest,
+#outer,
+#inner {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    border: 1px solid;
+}
+
+#outer {
+    width: 150px;
+    height: 74px;
+}
+
+#inner {
+    width: 100px;
+    height: 50px;
+}

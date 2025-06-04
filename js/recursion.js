@@ -1,4 +1,4 @@
-console.log('Hello!');
+console.log('====RECURSION====');
 
 const originalObject = {
   name: 'Alice',
@@ -24,15 +24,15 @@ const originalObject = {
 console.log(originalObject)
 
 function deepClone(obj) {
-  if (typeof obj !== 'object' || obj === null) return obj;
+  if (typeof obj !== 'object' || obj === null) {
+    console.log('base case - ', obj);
+    return obj
+  };
 
   let clone = Array.isArray(obj) ? [] : {};
-  console.log(clone)
   for (const key in obj) {
-    // console.log(key)
     clone[key] = deepClone(obj[key]); // 🔄 Recursive call
   }
-  console.log(clone)
   return clone;
 }
 
@@ -42,3 +42,40 @@ const copied = deepClone(original);
 // console.log(copied);
 
 
+let person = [
+  {
+    name: 'name 0 1',
+    person: [
+      {
+        name: "name 0 1 1",
+        person: [
+          {
+            name: "ajith 0 1 1 1"
+          },
+          {
+            name: "ajith 0 1 1 2"
+          }
+        ]
+      },
+      {
+        name: "ajith 0 1 2"
+      }
+    ]
+  },
+  {
+    name: 'name 0 2',
+    person: {
+      name: "ajith 2"
+    }
+  },
+]
+function rec(ip){
+    for(let i=0;i<ip.length;i++){
+        console.log('cc ',ip[i].name)
+        if(ip[i].person && Array.isArray(ip[i].person)){
+            rec(ip[i].person);
+        }
+    }
+}
+
+rec(person);
