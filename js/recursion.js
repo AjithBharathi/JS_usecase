@@ -39,7 +39,7 @@ function deepClone(obj) {
 const original = originalObject
 const copied = deepClone(original);
 
-// console.log(copied);
+console.log('deep clone ',copied);
 
 
 let person = [
@@ -69,13 +69,44 @@ let person = [
     }
   },
 ]
-function rec(ip){
-    for(let i=0;i<ip.length;i++){
-        console.log('cc ',ip[i].name)
-        if(ip[i].person && Array.isArray(ip[i].person)){
-            rec(ip[i].person);
-        }
+function rec(ip) {
+  for (let i = 0; i < ip.length; i++) {
+    console.log('cc ', ip[i].name)
+    if (ip[i].person && Array.isArray(ip[i].person)) {
+      return rec(ip[i].person);
     }
+  }
 }
 
 rec(person);
+
+function deepclone2(obj) {
+  if(typeof obj !== 'object' || obj === null) {
+    return obj
+  }
+
+  let copied = Array.isArray(obj) ? [] : {}
+  for(let key in obj) {
+    copied[key] = deepclone2(obj[key])
+  }
+  return copied
+}
+
+console.log('deepclone 2 ', deepclone2(original))
+
+function th(fn, time) {
+  let timer
+  return function(...args) {
+    clearTimeout(timer)
+    timer = setTimeout(()=>{
+      fn.apply(this, args)
+    },time)
+  }
+}
+
+function fn2(e) {
+  console.log(e.target.value)
+}
+
+let x = th(fn2, 500)
+document.getElementById('debouncing').addEventListener('input', x)
