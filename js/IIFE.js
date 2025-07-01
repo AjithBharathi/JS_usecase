@@ -37,3 +37,46 @@
 // If you'd like, I can show how to modify it to log both a and b, or how the closure works internally! 🚀
 
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+// ✅ Great! You want to keep var, but still log 0, 1, 2 at the right time.
+
+// 👉 The trick is to capture i's value at each loop iteration — you can do this using:
+
+// an IIFE (Immediately Invoked Function Expression)
+// 📝 Solution with IIFE
+
+for (var i = 0; i < 3; i++) {
+  (function(j) {
+    setTimeout(() => {
+      console.log(j);
+    }, 1000);
+  })(i);
+}
+
+// ⚡ How it works
+
+// The IIFE is called with the current i value
+// Inside the IIFE, j is a new local variable (unique per loop)
+// setTimeout closes over j, not over the shared i
+// ✅ Output after ~1000ms:
+
+// 0
+// 1
+// 2
+// 🚀 Summary
+
+// 👉 var is function-scoped — so you need to capture i's value for each iteration
+// 👉 The IIFE gives each timer its own copy of i
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
