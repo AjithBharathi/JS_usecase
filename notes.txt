@@ -1,0 +1,69 @@
+🔑 Microtasks (a.k.a. job queue, microtask queue)
+
+👉 Run after the current execution stack completes, before macrotasks
+👉 They are high priority — they drain fully before moving to the next macrotask.
+
+✅ Examples of microtasks:
+
+Promise.then, Promise.catch, Promise.finally
+queueMicrotask (explicit microtask)
+MutationObserver callbacks (browser)
+process.nextTick (Node.js-specific, but it's actually even before other microtasks!)
+📝 Microtasks are often used for continuations, so the app appears fast.
+
+🔑 Macrotasks (a.k.a. task queue, macro task queue)
+
+👉 Run after all microtasks have finished
+👉 Each macrotask is one full "tick" of the event loop.
+
+✅ Examples of macrotasks:
+
+setTimeout
+setInterval
+setImmediate (Node.js)
+requestAnimationFrame (browser — scheduled before paint)
+I/O events (e.g. network responses, file reads)
+UI rendering tasks
+📝 Macrotasks schedule the "next phase" of execution — they're spaced out over time.
+
+⚡ Event Loop Order
+
+1️⃣ Run current sync code
+2️⃣ Run all microtasks queued during that sync code
+3️⃣ Run one macrotask (e.g. a timeout handler)
+4️⃣ Repeat!
+
+📝 Visual summary
+
+| Call Stack |
+|------------|
+| Sync code  |
+--------------
+| Microtask queue (drain all before next macrotask) |
+| Promise.then / queueMicrotask / MutationObserver  |
+--------------
+| Macrotask queue (1 per loop) |
+| setTimeout / setInterval / setImmediate / rAF    |
+--------------
+
+
+
+| Queue type | Examples                                                                  | Priority                                   |
+| ---------- | ------------------------------------------------------------------------- | ------------------------------------------ |
+| Microtask  | `Promise.then`, `queueMicrotask`, `MutationObserver`, `process.nextTick`  | Runs **after sync code, before macrotask** |
+| Macrotask  | `setTimeout`, `setInterval`, `setImmediate`, `requestAnimationFrame`, I/O | Runs **after microtasks**                  |
+
+
+
+
+
+ Is a normal callback function microtask or macrotask?
+
+👉 A normal callback function by itself does not belong to either queue.
+
+❗ What matters is who schedules that callback:
+
+If you pass a callback to setTimeout, it becomes a macrotask.
+If you pass a callback to Promise.then, it becomes a microtask.
+If you pass a callback to queueMicrotask, it’s a microtask.
+If you pass a callback to requestAnimationFrame, it’s scheduled for the browser’s paint phase (macrotask-like).
